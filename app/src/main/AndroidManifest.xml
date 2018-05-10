@@ -47,7 +47,12 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".Search" />
         <activity android:name=".Login" />
-        <activity android:name=".SignUp"></activity>
+        <activity android:name=".SignUp" />
+        <activity android:name=".Checklist_user" />
+        <activity
+            android:name=".About"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

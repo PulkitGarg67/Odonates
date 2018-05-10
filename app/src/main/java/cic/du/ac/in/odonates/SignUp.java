@@ -64,6 +64,7 @@ public class SignUp extends AppCompatActivity {
                     if(!(mAuth.getCurrentUser().isEmailVerified())){
                         mAuth.getCurrentUser().sendEmailVerification();
                         Intent intent = new Intent(SignUp.this,Login.class);
+                        mAuth.signOut();
                         finish();
                         startActivity(intent);
                         return;

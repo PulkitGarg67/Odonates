@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:id="@+id/imageView"
-        android:src="@drawable/img1"
         android:scaleType="fitXY"
         android:contentDescription="Android Games"/>
 </LinearLayout>

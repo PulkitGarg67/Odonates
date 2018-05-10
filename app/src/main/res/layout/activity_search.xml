@@ -42,14 +42,14 @@
         android:layout_weight="1"
         android:background="@drawable/search_layout"
         android:fontFamily="@font/nunito"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="10dp"
         android:textColor="#555555"
         android:textSize="18sp"
-        tools:hint="Search here.." />
+        tools:hint="Enter Scientific Name" />
 
     <ImageView
         android:id="@+id/search"
@@ -61,17 +61,23 @@
         android:paddingRight="30dp"
         android:paddingLeft="20dp"
         android:scaleType="centerCrop"
-        app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+        app:srcCompat="?android:attr/actionModeWebSearchDrawable"
+        android:onClick="search"/>
 </LinearLayout>
-<android.support.v7.widget.RecyclerView
+<ListView
+    android:layout_margin="12dp"
     android:id="@+id/result"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/layout"
     android:layout_marginTop="50dp">
-    <!--android:layout_marginLeft="30dp">-->
-
-</android.support.v7.widget.RecyclerView>
+</ListView>
+    <ProgressBar
+        android:id="@+id/p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

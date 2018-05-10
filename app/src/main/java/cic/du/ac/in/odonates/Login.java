@@ -67,6 +67,7 @@ public class Login extends AppCompatActivity {
                         mAuth.getCurrentUser().sendEmailVerification();
                         View v = findViewById(R.id.login);
                         Snackbar.make(v, "Please Verify your Email !", Snackbar.LENGTH_LONG).show();
+                        mAuth.signOut();
                         return;
                     }
                     Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
@@ -99,5 +100,14 @@ public class Login extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Login");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser()!= null)    {
+            finish();
+            startActivity(new Intent(this,HomePage.class));
+        }
     }
 }

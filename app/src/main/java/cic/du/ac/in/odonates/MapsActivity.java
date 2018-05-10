@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,0,0,locationListener);
+                locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,0,1000,locationListener);
         }
     }
 
@@ -77,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
                 LatLng curpos = new LatLng(location.getLatitude(),location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(curpos).title("Your Location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curpos,8));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curpos,15));
 
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
@@ -106,18 +107,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
 
+
         if(Build.VERSION.SDK_INT <23) {
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 0, 1000, locationListener);
+            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
         } else {
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                Toast.makeText(this, " 2", Toast.LENGTH_SHORT).show();
             } else{
-                locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastlocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-                LatLng c urpos = new LatLng(lastlocation.getLatitude(),lastlocation.getLongitude());
+                locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 0, 1000, locationListener);
+                LatLng curpos = new LatLng(-34,151);
                 mMap.addMarker(new MarkerOptions().position(curpos).title("Your Location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curpos,12));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curpos,15));
+                Toast.makeText(this, "3", Toast.LENGTH_SHORT).show();
             }
         }
 
