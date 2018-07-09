@@ -70,7 +70,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/layout"
-    android:layout_marginTop="50dp">
+    android:layout_marginTop="50dp"
+    android:divider="@null"
+    android:dividerHeight="0dp">
 </ListView>
     <ProgressBar
         android:id="@+id/p"

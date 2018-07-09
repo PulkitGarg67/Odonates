@@ -1,12 +1,12 @@
 package cic.du.ac.in.odonates;
 
 import android.content.Intent;
-import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,7 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.Random;
+import java.util.Calendar;
 
 public class HomePage extends AppCompatActivity {
 
@@ -40,11 +40,157 @@ public class HomePage extends AppCompatActivity {
     ImageView img;
     ProgressBar p;
     TextView t;
+    FirebaseDatabase database;
+    DatabaseReference ref;
+    String snames;
+    long elapsedDays, current;
 
-    void set(String Sname){
-//        Toast.makeText(this, Sname, Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home_page);
+
+        mAuth = FirebaseAuth.getInstance();
+        img = findViewById(R.id.topOdonate);
+        t = findViewById(R.id.text);
+        toolbar = findViewById(R.id.toolbar);
+        p = findViewById(R.id.main_p);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("ODONATA");
+
+        p.setVisibility(View.VISIBLE);
+
+        database = FirebaseDatabase.getInstance();
+        set_daily_image();
+
+    }
+
+    private void set_daily_image() {
+
+        if (!(isNetworkAvailable())) {
+            Toast.makeText(this, "Check Your Connection And retry.", Toast.LENGTH_SHORT).show();
+        } else {
+            final long current = Calendar.getInstance().getTimeInMillis();
+            getLastInstance("time", current);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    if (elapsedDays != 0) {
+                        Log.i("passed","passed");
+                        database.getReference("time").setValue(current);
+                        database.getReference("Odonates").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.exists())
+                                    Log.e("snap: ", "not exist");
+                                long count = dataSnapshot.getChildrenCount();
+
+                                int c = (int) count;
+//                             int randomNumber = new Random().nextInt(c);
+//                             while(randomNumber==0)
+//                             int randomNumber = new Random().nextInt(c);
+                                int randomNumber = 0;
+                                updatePos(randomNumber);
+                                int i = 0;
+                                for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                                    if (i == randomNumber) {
+                                        snames = snap.child("Sname").getValue().toString();
+                                        set(snap.child("Sname").getValue().toString());
+                                        break;
+                                    }
+                                    i++;
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(HomePage.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+                                p.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                    } else {
+
+                        database.getReference("pos").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Long randomNumber = (Long) (dataSnapshot.getValue());
+                                setpic(randomNumber);
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(HomePage.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+                                p.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                    }
+                }
+            }, 300);
+        }
+    }
+    private void updatePos(int randomNumber) {
+        database.getReference("pos").setValue(randomNumber);
+    }
+
+    private void setpic(final long random) {
+        database.getReference("Odonates").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists())
+                    Log.e("snap: ", "not exist");
+                long count = dataSnapshot.getChildrenCount();
+                long i = 0;
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                    if (i == random) {
+                        snames = snap.child("Sname").getValue().toString();
+                        set(snap.child("Sname").getValue().toString());
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(HomePage.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+                p.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+
+    private void getLastInstance(String time, final long curTime) {
+
+        database.getReference(time).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long Value = (Long) dataSnapshot.getValue();
+                difference(Value, curTime);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void difference(long value, long curtime) {
+        long different = curtime - value;
+        elapsedDays = different / (60000 * 24);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    void set(String Sname) {
         t.setText(Sname);
-        StorageReference storageReference =  FirebaseStorage.getInstance().getReference().child(Sname+"/img_1.JPG");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(Sname + "/img_1.JPG");
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -63,75 +209,35 @@ public class HomePage extends AppCompatActivity {
             public void run() {
                 p.setVisibility(View.INVISIBLE);
             }
-        },2000);
+        }, 2000);
     }
 
-    public void location(View view  ){
-        Intent homeIntent = new Intent(HomePage.this,Checklist_user.class);
+    public void location(View view) {
+        Intent homeIntent = new Intent(HomePage.this, Checklist_user.class);
         startActivity(homeIntent);
     }
+
     public void list1(View view) {
-        Intent homeIntent = new Intent(HomePage.this,List.class);
-        homeIntent.putExtra("species",1);
+        Intent homeIntent = new Intent(HomePage.this, List.class);
+        homeIntent.putExtra("species", 1);
         startActivity(homeIntent);
     }
 
     public void list2(View view) {
-        Intent homeIntent = new Intent(HomePage.this,List.class);
-        homeIntent.putExtra("species",2);
+        Intent homeIntent = new Intent(HomePage.this, List.class);
+        homeIntent.putExtra("species", 2);
         startActivity(homeIntent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
-
-        mAuth = FirebaseAuth.getInstance();
-        img= findViewById(R.id.topOdonate);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ODONATA");
-
-        p = findViewById(R.id.main_p);
-        p.setVisibility(View.VISIBLE);
-        t = findViewById(R.id.text);
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("Odonates").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
-
-                int c = (int) count;
-//                    int randomNumber = new Random().nextInt(c);
-//                    while(randomNumber==0)
-//                        int randomNumber = new Random().nextInt(c);
-                    int randomNumber =0;
-                    int i=0;
-                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                        if(i == randomNumber) {
-                           set(snap.child("Sname").getValue().toString());
-                            break;
-                        }
-                        i++;
-                    }
-                }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(HomePage.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
-                p.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
-
+    public void details(View view) {
+        Intent damselIntent = new Intent(this, Specific.class);
+        damselIntent.putExtra("Sname", snames);
+        startActivity(damselIntent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -139,18 +245,20 @@ public class HomePage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if(id == R.id.item1_id) {
+        if (id == R.id.item1_id) {
             Toast.makeText(this, "About Odonates", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this,About.class));
-        }else if(id == R.id.search_id) {
-            Intent homeIntent = new Intent(HomePage.this,Search.class);
+            startActivity(new Intent(this, About.class));
+        } else if (id == R.id.search_id) {
+            Intent homeIntent = new Intent(HomePage.this, Search.class);
             startActivity(homeIntent);
-        }else if(id==R.id.item2_id){
+        } else if (id == R.id.item2_id) {
             mAuth.signOut();
-            startActivity(new Intent(this,Login.class));
+            startActivity(new Intent(this, Login.class));
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
 

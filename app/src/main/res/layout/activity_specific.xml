@@ -7,17 +7,17 @@
     tools:context="cic.du.ac.in.odonates.Specific">
 
     <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:visibility="invisible"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:id="@+id/viewPager"
-        android:layout_below="@id/toolbar"/>
+        android:id="@+id/viewPager" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -25,21 +25,12 @@
         android:background="@color/darkgray"></View>
 
     <ListView
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/viewPager"
         android:id="@+id/content"/>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:elevation="24dp"
-        android:src="@drawable/like"
-        android:onClick="like"/>
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

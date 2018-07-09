@@ -59,7 +59,6 @@ public class slideshowAdapter extends PagerAdapter{
         inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflator.inflate(R.layout.slideshow,container,false);
         final ImageView img = view.findViewById(R.id.imageView);
-//        img.setImageResource(images[position]);
         StorageReference storageReference =  FirebaseStorage.getInstance().getReference().child(Sname+"/"+l[position]);
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

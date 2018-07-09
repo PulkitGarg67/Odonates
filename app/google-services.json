@@ -25,6 +25,58 @@
         {
           "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",
           "client_type": 3
+        },
+        {
+          "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQpg88NggZOF90pzAs3ULrDymtDGI8NaM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349937943457:android:072138bdb44173e1",
+        "android_client_info": {
+          "package_name": "cic.du.ac.in.odonatas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349937943457-bnrmq8bnbujsl92rt49i1rcptij58fou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cic.du.ac.in.odonatas",
+            "certificate_hash": "bbc2e21399c1fe58dfe23f27114dd140a44e8dec"
+          }
+        },
+        {
+          "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -65,6 +117,10 @@
             "package_name": "cic.du.ac.in.odonates",
             "certificate_hash": "bbc2e21399c1fe58dfe23f27114dd140a44e8dec"
           }
+        },
+        {
+          "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "349937943457-pm75k7a5spd90p2ces6ibfgajsb8nbv0.apps.googleusercontent.com",

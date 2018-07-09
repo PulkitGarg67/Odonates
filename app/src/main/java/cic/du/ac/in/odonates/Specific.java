@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class    Specific extends AppCompatActivity {
+public class Specific extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
@@ -85,7 +85,6 @@ public class    Specific extends AppCompatActivity {
                     key=datas.getKey();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(Specific.this, databaseError.toString(), Toast.LENGTH_SHORT).show();

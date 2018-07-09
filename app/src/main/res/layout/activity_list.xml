@@ -19,7 +19,9 @@
         android:layout_height="match_parent"
         android:id="@+id/lst"
         android:layout_below="@id/toolbar"
-        android:paddingLeft="10sp"></ListView>
+        android:paddingLeft="10sp"
+        android:divider="@null"
+        android:dividerHeight="0dp"></ListView>
 
     <ProgressBar
         android:id="@+id/progressbar"

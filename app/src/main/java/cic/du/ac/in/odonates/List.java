@@ -2,7 +2,6 @@ package cic.du.ac.in.odonates;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,9 +24,13 @@ import com.google.firebase.database.Query;
 
 
 public class List extends AppCompatActivity {
-    ProgressBar p;
 
+    ProgressBar p;
     FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    ListView lst;
+    FirebaseListAdapter<dataFetch> firebaseListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,90 +40,62 @@ public class List extends AppCompatActivity {
         p.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         int id = intent.getIntExtra("species",1);
 
-        final ListView lst = findViewById(R.id.lst);
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        lst = findViewById(R.id.lst);
+        database = FirebaseDatabase.getInstance();
 
-        if(id==1)   {
-            getSupportActionBar().setTitle("Dragon Flies");
-            DatabaseReference myRef = database.getReference("Odonates");
-            Query select = myRef.orderByChild("Type").equalTo("T");
-            myRef.keepSynced(true);
-            final FirebaseListAdapter<dataFetch> firebaseListAdapter = new FirebaseListAdapter<dataFetch>(List.this,dataFetch.class, android.R.layout.simple_list_item_2, select) {
-                @Override
-                protected void populateView(View v, dataFetch model, int position) {
-                    String Cname = "<big>"+model.getCname()+"</big>";
-                    String Sname = "<i>"+model.getSname()+"</i>";
-                    ((TextView)v.findViewById(android.R.id.text1)).setText(Html.fromHtml(Cname));
-                    ((TextView)v.findViewById(android.R.id.text2)).setText(Html.fromHtml(Sname));
-                }
-            };
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    p.setVisibility(View.INVISIBLE);
-                    // Actions to do after 10 seconds
-                    if(!(firebaseListAdapter.getCount()>0)){
-                        Toast.makeText(List.this, "Sorry Results not Found", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    lst.setAdapter(firebaseListAdapter);
-                }
-            }, 5000);
-            lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent damselIntent = new Intent(List.this,Specific.class);
-                    damselIntent.putExtra("Sname",firebaseListAdapter.getItem(i).getSname());
-                    startActivity(damselIntent);
-                }
-            });
+        switch (id){
+            case 1:setList("Dragonfly");
+                    break;
+            case 2:setList("Damselfly");
+                    break;
+            default:Log.i("Intent Extra","Wrong Input");
+                    break;
         }
-        else
-        if(id==2)   {
-            getSupportActionBar().setTitle("Damsel Flies");
-            DatabaseReference myRef = database.getReference("Odonates");
-            Query select = myRef.orderByChild("Type").equalTo("D");
-            myRef.keepSynced(true);
-            final FirebaseListAdapter<dataFetch> firebaseListAdapter = new FirebaseListAdapter<dataFetch>(List.this,dataFetch.class, android.R.layout.simple_list_item_2, select) {
-                @Override
-                protected void populateView(View v, dataFetch model, int position) {
-                    String Cname = "<big>"+model.getCname()+"</big>";
-                    String Sname = "<i>"+model.getSname()+"</i>";
-                    ((TextView)v.findViewById(android.R.id.text1)).setText(Html.fromHtml(Cname));
-                    ((TextView)v.findViewById(android.R.id.text2)).setText(Html.fromHtml(Sname));
-                }
-            };
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    p.setVisibility(View.INVISIBLE);
-                    // Actions to do after 10 seconds
-                    if(!(firebaseListAdapter.getCount()>0)){
-                        Toast.makeText(List.this, "Sorry Results not Found", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent damselIntent = new Intent(List.this,Specific.class);
+                damselIntent.putExtra("Sname",firebaseListAdapter.getItem(i).getSname());
+                startActivity(damselIntent);
+            }
+        });
+    }
 
-                    lst.setAdapter(firebaseListAdapter);
+    private void setList(String Odonates) {
+        getSupportActionBar().setTitle(Odonates);
+        DatabaseReference myRef = database.getReference(Odonates);
+        Query sort = myRef.orderByChild("Cname");
+        myRef.keepSynced(true);
+        firebaseListAdapter  = new FirebaseListAdapter<dataFetch>(List.this,dataFetch.class, android.R.layout.simple_list_item_2, sort) {
+            @Override
+            protected void populateView(View v, dataFetch model, int position) {
+                String Cname = "<big>"+model.getCname()+"</big>";
+                String Sname = "<i>"+model.getSname()+"</i>";
+                ((TextView)v.findViewById(android.R.id.text1)).setText(Html.fromHtml(Cname));
+                ((TextView)v.findViewById(android.R.id.text2)).setText(Html.fromHtml(Sname));
+            }
+        };
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                p.setVisibility(View.INVISIBLE);
+                // Actions to do after 10 seconds
+                if(!(firebaseListAdapter.getCount()>0)){
+                    Toast.makeText(List.this, "Sorry Results not Found", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-            }, 5000);
-            lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent damselIntent = new Intent(List.this,Specific.class);
-                    damselIntent.putExtra("Sname",firebaseListAdapter.getItem(i).getSname());
-                    startActivity(damselIntent);
-                }
-            });
-        }
+
+                lst.setAdapter(firebaseListAdapter);
+            }
+        }, 5000);
     }
 
     @Override

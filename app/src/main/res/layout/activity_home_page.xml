@@ -14,55 +14,6 @@
         android:background="?attr/colorPrimary"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="10sp"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:padding="10sp">-->
-
-            <!--<android.support.v7.widget.AppCompatButton-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:text="Dragonflies of India"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:padding="10sp"-->
-                <!--android:textSize="15sp"-->
-                <!--android:backgroundTint="@color/Button"-->
-                <!--android:textColor="@color/background"-->
-                <!--android:onClick="list1"/>-->
-
-        <!--</RelativeLayout>-->
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:padding="10sp">-->
-
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:text="Damselflies of India"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:padding="10sp"-->
-                <!--android:textSize="15sp"-->
-                <!--android:backgroundTint="@color/Button"-->
-                <!--android:textColor="@color/background"-->
-                <!--android:onClick="list2"/>-->
-
-        <!--</RelativeLayout>-->
-
-    <!--</LinearLayout>-->
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -83,7 +34,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:padding="10sp">
+                android:padding="10sp"
+                android:onClick="details">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,8 +49,7 @@
                     android:layout_below="@id/text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/ic_launcher"
-                    android:padding="30sp"/>
+                    android:src="@mipmap/ic_launcher" />
 
                 <ProgressBar
                     android:id="@+id/main_p"
@@ -213,55 +164,6 @@
         android:src="@drawable/ic_note_add_white_24dp"
         app:fabSize="normal"
         android:onClick="location"/>
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:padding="10sp">-->
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:padding="10sp">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/checklist"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:gravity="center"-->
-                <!--android:text="Checklist"-->
-                <!--android:padding="10sp"-->
-                <!--android:textSize="15sp"-->
-                <!--android:backgroundTint="@color/Button"-->
-                <!--android:textColor="@color/background"-->
-                <!--android:onClick="location"/>-->
-
-
-        <!--</RelativeLayout>-->
-
-        <!--<RelativeLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="10sp">-->
-
-        <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Create Checklist"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:padding="10sp"-->
-        <!--android:textSize="15sp"
-            android:backgroundTint="@color/Button"
-            android:textColor="@color/background"/>-->
-
-        <!--</RelativeLayout>-->
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>
 

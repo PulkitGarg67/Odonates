@@ -31,8 +31,8 @@ public class Search extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mref;
     ListView result;
-
     EditText Sname;
+
     public void search(View view){
         final ProgressBar p = findViewById(R.id.p);
         p.setVisibility(View.VISIBLE);
@@ -68,8 +68,6 @@ public class Search extends AppCompatActivity {
                 result.setAdapter(firebaseListAdapter);
             }
         }, 5000);
-
-
 
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
