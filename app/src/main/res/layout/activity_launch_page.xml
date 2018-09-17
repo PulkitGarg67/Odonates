@@ -12,7 +12,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/odonata"
+            android:src="@mipmap/odonata"
             android:layout_marginBottom="15sp"/>
 
         <TextView
@@ -29,4 +29,10 @@
             android:textStyle="bold"
             android:textColor="#105012"/>
 
+    <ProgressBar
+        android:id="@+id/progress_launchPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
     </RelativeLayout>

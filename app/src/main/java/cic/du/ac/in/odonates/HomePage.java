@@ -79,7 +79,7 @@ public class HomePage extends AppCompatActivity {
                     if (elapsedDays != 0) {
                         Log.i("passed","passed");
                         database.getReference("time").setValue(current);
-                        database.getReference("Odonates").addValueEventListener(new ValueEventListener() {
+                        database.getReference("Odonate").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (!dataSnapshot.exists())
@@ -95,8 +95,8 @@ public class HomePage extends AppCompatActivity {
                                 int i = 0;
                                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
                                     if (i == randomNumber) {
-                                        snames = snap.child("Sname").getValue().toString();
-                                        set(snap.child("Sname").getValue().toString());
+                                        snames = snap.child("sname").getValue().toString();
+                                        set(snap.child("sname").getValue().toString());
                                         break;
                                     }
                                     i++;
@@ -134,7 +134,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void setpic(final long random) {
-        database.getReference("Odonates").addValueEventListener(new ValueEventListener() {
+        database.getReference("Odonate").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists())
@@ -143,8 +143,8 @@ public class HomePage extends AppCompatActivity {
                 long i = 0;
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     if (i == random) {
-                        snames = snap.child("Sname").getValue().toString();
-                        set(snap.child("Sname").getValue().toString());
+                        snames = snap.child("sname").getValue().toString();
+                        set(snap.child("sname").getValue().toString());
                         break;
                     }
                     i++;
@@ -209,7 +209,7 @@ public class HomePage extends AppCompatActivity {
             public void run() {
                 p.setVisibility(View.INVISIBLE);
             }
-        }, 2000);
+        }, 300);
     }
 
     public void location(View view) {
@@ -246,7 +246,6 @@ public class HomePage extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.item1_id) {
-            Toast.makeText(this, "About Odonates", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, About.class));
         } else if (id == R.id.search_id) {
             Intent homeIntent = new Intent(HomePage.this, Search.class);

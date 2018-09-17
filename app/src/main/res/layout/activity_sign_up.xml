@@ -28,7 +28,7 @@
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                app:srcCompat="@drawable/odonata" />
+                app:srcCompat="@mipmap/odonata" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/email_layout"

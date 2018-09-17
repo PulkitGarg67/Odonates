@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 public class Login extends AppCompatActivity {
 
@@ -104,6 +107,17 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(mAuth.getCurrentUser()!= null)    {
+            FirebaseUser user = mAuth.getCurrentUser(); // mAuth is your current firebase auth instance
+            user.getToken(true).addOnCompleteListener(this, new OnCompleteListener<GetTokenResult>() {
+                @Override
+                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.i("TOKEN","token=" + task.getResult().getToken());
+                    } else {
+                        Log.i("Token", "exception=" +task.getException().toString());
+                    }
+                }
+            });
             finish();
             startActivity(new Intent(this,HomePage.class));
         }

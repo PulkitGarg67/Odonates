@@ -52,9 +52,9 @@ public class List extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         switch (id){
-            case 1:setList("Dragonfly");
+            case 1:setList("dragonflies");
                     break;
-            case 2:setList("Damselfly");
+            case 2:setList("damselflies");
                     break;
             default:Log.i("Intent Extra","Wrong Input");
                     break;
@@ -72,7 +72,7 @@ public class List extends AppCompatActivity {
     private void setList(String Odonates) {
         getSupportActionBar().setTitle(Odonates);
         DatabaseReference myRef = database.getReference(Odonates);
-        Query sort = myRef.orderByChild("Cname");
+        Query sort = myRef.orderByChild("cname");
         myRef.keepSynced(true);
         firebaseListAdapter  = new FirebaseListAdapter<dataFetch>(List.this,dataFetch.class, android.R.layout.simple_list_item_2, sort) {
             @Override
@@ -95,7 +95,7 @@ public class List extends AppCompatActivity {
 
                 lst.setAdapter(firebaseListAdapter);
             }
-        }, 5000);
+        }, 3000);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class List extends AppCompatActivity {
             Intent homeIntent = new Intent(List.this,Search.class);
             startActivity(homeIntent);
         }else if(id == R.id.item1_id)   {
-            Toast.makeText(this, "About Odonates", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, About.class));
         }else if(id==R.id.item2_id){
             mAuth.signOut();
             startActivity(new Intent(this,Login.class));

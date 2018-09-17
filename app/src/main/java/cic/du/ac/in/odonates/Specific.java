@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import me.relex.circleindicator.CircleIndicator;
+
 public class Specific extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -30,32 +32,9 @@ public class Specific extends AppCompatActivity {
     DatabaseReference myRef,mDatabase,dref;
     String key;
     ProgressBar p;
+    CircleIndicator circleIndicator;
 
     private boolean mProcesslike = false;
-    public void like(View view){
-        mDatabase = database.getReference("Odonates").child(key).child("Likes");
-        mDatabase.keepSynced(true);
-        mProcesslike=true;
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (mProcesslike) {
-                        if (dataSnapshot.hasChild(mAuth.getCurrentUser().getUid())) {
-                            mDatabase.child(mAuth.getCurrentUser().getUid()).removeValue();
-                            mProcesslike = false;
-                        } else {
-                            mDatabase.child(mAuth.getCurrentUser().getUid()).setValue("Random Value");
-                            mProcesslike = false;
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +42,7 @@ public class Specific extends AppCompatActivity {
         p  = findViewById(R.id.p);
         p.setVisibility(View.VISIBLE);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarspe);
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
@@ -75,10 +54,10 @@ public class Specific extends AppCompatActivity {
 
         final ListView lst = findViewById(R.id.content);
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Odonates");
-        Query select = myRef.orderByChild("Sname").equalTo(Sname).limitToFirst(1);
+        myRef = database.getReference("Odonate");
+        Query select = myRef.orderByChild("sname").equalTo(Sname).limitToFirst(1);
 
-        myRef.orderByChild("Sname").equalTo(Sname).limitToFirst(1).addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("sname").equalTo(Sname).limitToFirst(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datas: dataSnapshot.getChildren()){
@@ -108,10 +87,12 @@ public class Specific extends AppCompatActivity {
                 }
                 lst.setAdapter(firebaseListAdapter);
             }
-        }, 5000);
+        }, 500);
         ViewPager viewPager = findViewById(R.id.viewPager);
+        circleIndicator = findViewById(R.id.indicator);
         slideshowAdapter adapter = new slideshowAdapter(this,Sname);
         viewPager.setAdapter(adapter);
+        circleIndicator.setViewPager(viewPager);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

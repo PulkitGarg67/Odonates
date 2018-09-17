@@ -36,7 +36,7 @@ public class slideshowAdapter extends PagerAdapter{
         this.Sname = Sname;
     }
 
-    public int[] images = {R.drawable.odonata,R.drawable.odonata};
+    public int[] images = {R.mipmap.odonata,R.mipmap.odonata};
 
     @Override
     public int getCount() {

@@ -7,34 +7,42 @@
     tools:context="cic.du.ac.in.odonates.Specific">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarspe"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:visibility="invisible"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:id="@+id/viewPager" />
+        android:layout_below="@id/toolbarspe"
+        android:background="@drawable/imageviewer_background" />
+    <me.relex.circleindicator.CircleIndicator
+        android:layout_below="@id/toolbarspe"
+        android:id="@+id/indicator"
+        android:layout_marginTop="170dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/viewPager"
-        android:background="@color/darkgray"></View>
+        android:background="@color/darkgray"
+        android:padding="4dp"></View>
 
     <ListView
-        android:paddingTop="10dp"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/viewPager"
-        android:id="@+id/content"/>
+        android:paddingTop="10dp" />
 
     <ProgressBar
+        android:id="@+id/p"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/p"
         android:layout_centerInParent="true"
         android:visibility="invisible"/>
 </RelativeLayout>

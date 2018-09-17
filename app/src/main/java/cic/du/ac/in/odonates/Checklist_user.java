@@ -110,10 +110,10 @@ public class Checklist_user extends AppCompatActivity {
         lst.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Odonates");
+        DatabaseReference myRef = database.getReference("Odonate");
         final DatabaseReference uref = database.getReference();
         user = uref.child("Users").child(mAuth.getCurrentUser().getUid());
-        Query select = myRef.orderByChild("Type");
+        Query select = myRef.orderByChild("type");
         myRef.keepSynced(true);
         firebaseListAdapter = new FirebaseListAdapter<dataFetch>(Checklist_user.this, dataFetch.class, R.layout.activity_design_checklist, select) {
             @Override
@@ -133,7 +133,7 @@ public class Checklist_user extends AppCompatActivity {
                 }
                 lst.setAdapter(firebaseListAdapter);
             }
-        }, 5000);
+        }, 500);
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -193,9 +193,22 @@ public class Checklist_user extends AppCompatActivity {
             startActivity(back);
         } else if (id == R.id.submit) {
             if (checkedItems.size() > 0) {
+                final Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "List of Odonates : "+name);
+                StringBuilder sb = new StringBuilder();
+                sb.append("Following is the list of the Selected Odonates : \n\n");
+                sb.append(name+"\n\n") ;
+                sb.append("Latitude : "+lat+"\n");
+                sb.append("Longitude : "+lng+"\n\n");
+                for (String s : checkedItems) {
+                    sb.append(s);
+                    sb.append("\n");
+                }
+                intent.putExtra(Intent.EXTRA_TEXT, sb.toString());
                 DatabaseReference temp = user.child(name);
                 for (int i = 0; i < checkedItems.size(); i++)
-                    temp.push().child("Sname").setValue(checkedItems.get(i));
+                    temp.push().child("sname").setValue(checkedItems.get(i));
                 temp.child("Lat").setValue(lat);
                 temp.child("Lng").setValue(lng).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -204,8 +217,12 @@ public class Checklist_user extends AppCompatActivity {
                         Intent back = new Intent(Checklist_user.this, HomePage.class);
                         finish();
                         startActivity(back);
+                        startActivity(intent) ;
+
                     }
                 });
+
+
             }
         }
         return super.onOptionsItemSelected(item);

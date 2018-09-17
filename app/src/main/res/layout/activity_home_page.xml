@@ -8,9 +8,9 @@
     tools:context="cic.du.ac.in.odonates.HomePage">
 
     <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -34,22 +34,27 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:padding="10sp"
-                android:onClick="details">
+                android:onClick="details"
+                android:padding="10sp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/text"
+                    android:layout_width="400dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="italic|bold"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="serif"
                     android:text=""
-                    android:textSize="16dp"
-                    android:id="@+id/text"/>
+                    android:textSize="20dp"
+                    android:textStyle="italic|bold" />
 
                 <ImageView
                     android:id="@+id/topOdonate"
-                    android:layout_below="@id/text"
-                    android:layout_width="match_parent"
+                    android:layout_width="400dp"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_below="@id/text"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/imageviewer_background"
+                    android:padding="4dp"
+                    android:scaleType="fitXY" />
 
                 <ProgressBar
                     android:id="@+id/main_p"
@@ -59,9 +64,9 @@
                     android:visibility="invisible"/>
             </RelativeLayout>
             <LinearLayout
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -70,25 +75,22 @@
                     android:layout_width="160dp"
                     android:layout_height="190dp"
                     android:layout_margin="10dp"
+                    android:background="@drawable/cardview_background"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/lightgray"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:background="@color/lightgray">
+                        android:onClick="list1"
+                        android:orientation="vertical">
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/img2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@mipmap/dragonflies"
                             android:padding="10dp"/>
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:text="Dragonflies of India"-->
-                            <!--android:textStyle="bold"/>-->
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -100,7 +102,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:onClick="list1"
                             android:padding="5dp"
                             android:text="Dragonflies of India"
                             android:textColor="@android:color/black" />
@@ -111,25 +112,22 @@
                     android:layout_width="160dp"
                     android:layout_height="190dp"
                     android:layout_margin="10dp"
+                    android:background="@drawable/cardview_background"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/lightgray"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:background="@color/lightgray">
+                        android:onClick="list2"
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/img1"
-                            android:padding="10dp"/>
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:text="Romance"-->
-                            <!--android:textStyle="bold"/>-->
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@mipmap/damselflies"
+                            android:padding="10dp" />
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -141,29 +139,54 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:onClick="list2"
                             android:padding="5dp"
                             android:text="Damselflies of India"
                             android:textColor="@android:color/black" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-
             </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/checklist"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="location">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/lightgray">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="serif"
+                        android:paddingLeft="16sp"
+                        android:text="CheckList"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="5dp"
+                        android:src="@drawable/ic_next" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/checklist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:elevation="24dp"
-        android:src="@drawable/ic_note_add_white_24dp"
-        app:fabSize="normal"
-        android:onClick="location"/>
 
 </RelativeLayout>
 

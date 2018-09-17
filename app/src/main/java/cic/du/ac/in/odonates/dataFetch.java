@@ -5,31 +5,31 @@ package cic.du.ac.in.odonates;
  */
 
 public class dataFetch {
-    private String Cname;
-    private String Sname;
-    private String Content;
+    private String cname;
+    private String sname;
+    private String content;
     private Long Count;
 
     public dataFetch() {
     }
 
-    public dataFetch(String cname, String sname, String content, Long count) {
-        Cname = cname;
-        Sname = sname;
-        Content = content;
+    public dataFetch(String c, String s, String content, Long count) {
+        cname = c;
+        sname = s;
+        content = content;
         Count = count;
     }
 
     public String getCname() {
-        return Cname;
+        return cname;
     }
 
     public String getSname() {
-        return Sname;
+        return sname;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public Long getCount() {

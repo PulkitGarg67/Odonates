@@ -4,6 +4,6 @@
     <item
         android:title=""
         android:id="@+id/submit"
-        android:icon="@drawable/done"
+        android:icon="@mipmap/done"
         app:showAsAction="always"/>
 </menu>
