@@ -217,6 +217,9 @@ public class HomePage extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
+    public void new_odonate(View  view){
+        startActivity(new Intent(this,NewOdonate.class));
+    }
     public void list1(View view) {
         Intent homeIntent = new Intent(HomePage.this, List.class);
         homeIntent.putExtra("species", 1);
