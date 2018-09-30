@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class HomePage extends AppCompatActivity {
 
@@ -41,9 +43,8 @@ public class HomePage extends AppCompatActivity {
     ProgressBar p;
     TextView t;
     FirebaseDatabase database;
-    DatabaseReference ref;
     String snames;
-    long elapsedDays, current;
+    long elapsedDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class HomePage extends AppCompatActivity {
         p = findViewById(R.id.main_p);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ODONATA");
+        getSupportActionBar().setTitle(R.string.app_name);
 
         p.setVisibility(View.VISIBLE);
 
@@ -87,10 +88,9 @@ public class HomePage extends AppCompatActivity {
                                 long count = dataSnapshot.getChildrenCount();
 
                                 int c = (int) count;
-//                             int randomNumber = new Random().nextInt(c);
-//                             while(randomNumber==0)
-//                             int randomNumber = new Random().nextInt(c);
-                                int randomNumber = 0;
+                                int randomNumber = new Random().nextInt(c);
+                                while (randomNumber == 0)
+                                    randomNumber = new Random().nextInt(c);
                                 updatePos(randomNumber);
                                 int i = 0;
                                 for (DataSnapshot snap : dataSnapshot.getChildren()) {

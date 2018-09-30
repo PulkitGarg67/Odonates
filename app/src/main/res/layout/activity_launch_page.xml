@@ -24,7 +24,7 @@
 
             android:fontFamily="monospace"
             android:layout_below="@id/logo"
-            android:text="ODONATA"
+            android:text="@string/app_name"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#105012"/>

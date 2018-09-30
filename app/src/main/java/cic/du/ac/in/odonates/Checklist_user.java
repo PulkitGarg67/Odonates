@@ -31,7 +31,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -42,7 +45,7 @@ public class Checklist_user extends AppCompatActivity {
     double lat,lng;
     Dialog Checkname;
     String name;
-    EditText check;
+    EditText check,comment;
     DatabaseReference user;
     FirebaseListAdapter<dataFetch> firebaseListAdapter;
     ArrayList<String> checkedItems;
@@ -106,9 +109,9 @@ public class Checklist_user extends AppCompatActivity {
 
         p = findViewById(R.id.progressbar);
         p.setVisibility(View.VISIBLE);
-        final ListView lst = (ListView) findViewById(R.id.checklist);
+        final ListView lst = findViewById(R.id.checklist);
         lst.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+        comment = findViewById(R.id.comment);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Odonate");
         final DatabaseReference uref = database.getReference();
@@ -193,10 +196,15 @@ public class Checklist_user extends AppCompatActivity {
             startActivity(back);
         } else if (id == R.id.submit) {
             if (checkedItems.size() > 0) {
+                String com = comment.getText().toString().trim();
                 final Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "List of Odonates : "+name);
                 StringBuilder sb = new StringBuilder();
+                Date c = Calendar.getInstance().getTime();
+
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                sb.append("Date : "+df.format(c)+"\n\n");
                 sb.append("Following is the list of the Selected Odonates : \n\n");
                 sb.append(name+"\n\n") ;
                 sb.append("Latitude : "+lat+"\n");
@@ -205,10 +213,13 @@ public class Checklist_user extends AppCompatActivity {
                     sb.append(s);
                     sb.append("\n");
                 }
+                if(com.length()!=0)
+                    sb.append("\nComments : "+com);
                 intent.putExtra(Intent.EXTRA_TEXT, sb.toString());
                 DatabaseReference temp = user.child(name);
                 for (int i = 0; i < checkedItems.size(); i++)
                     temp.push().child("sname").setValue(checkedItems.get(i));
+                temp.child("Comments").setValue(com);
                 temp.child("Lat").setValue(lat);
                 temp.child("Lng").setValue(lng).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
