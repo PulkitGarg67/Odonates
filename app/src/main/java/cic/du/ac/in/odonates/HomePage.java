@@ -129,6 +129,7 @@ public class HomePage extends AppCompatActivity {
             }, 300);
         }
     }
+
     private void updatePos(int randomNumber) {
         database.getReference("pos").setValue(randomNumber);
     }

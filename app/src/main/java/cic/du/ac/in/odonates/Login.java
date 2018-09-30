@@ -34,7 +34,10 @@ public class Login extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
-
+    void forgot_password(View view){
+        finish();
+        startActivity(new Intent(Login.this,ResetActivity.class));
+    }
     public void login(View view){
         emailaddress = email.getText().toString().trim();
         passwordtext = password.getText().toString().trim();

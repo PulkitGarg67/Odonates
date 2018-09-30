@@ -65,7 +65,8 @@
             android:name=".About"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme" />
-        <activity android:name=".NewOdonate"></activity>
+        <activity android:name=".NewOdonate" />
+        <activity android:name=".ResetActivity"></activity>
     </application>
 
 </manifest>
