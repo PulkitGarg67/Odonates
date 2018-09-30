@@ -1,6 +1,7 @@
 package cic.du.ac.in.odonates;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -120,6 +121,9 @@ public class List extends AppCompatActivity {
             mAuth.signOut();
             startActivity(new Intent(this,Login.class));
             finish();
+        } else if (id == R.id.download){
+            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.pdfFile)));
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

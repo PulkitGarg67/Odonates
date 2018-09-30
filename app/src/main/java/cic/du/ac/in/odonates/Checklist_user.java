@@ -116,7 +116,7 @@ public class Checklist_user extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("Odonate");
         final DatabaseReference uref = database.getReference();
         user = uref.child("Users").child(mAuth.getCurrentUser().getUid());
-        Query select = myRef.orderByChild("type");
+        Query select = myRef.orderByChild("cname");
         myRef.keepSynced(true);
         firebaseListAdapter = new FirebaseListAdapter<dataFetch>(Checklist_user.this, dataFetch.class, R.layout.activity_design_checklist, select) {
             @Override

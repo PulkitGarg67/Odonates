@@ -7,6 +7,9 @@
         android:id="@+id/item1_id"/>
 
     <item
+        android:title="Download PDF"
+        android:id="@+id/download"/>
+    <item
         android:title="Sign Out"
         android:id="@+id/item2_id"/>
 

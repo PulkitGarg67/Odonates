@@ -14,4 +14,6 @@
     </string>
 
     <string name="company_mail">asanii.bhaduri@gmail.com</string>
+    <string name="pdfFile"><![CDATA[https://firebasestorage.googleapis.com/v0/b/odonata-83b3f.appspot.com/o/Dragonfly%20field%20guide.pdf?alt=media&token=f5c1536b-0e3d-43e8-bd17-7f6a4194f2dc]]></string>
+
 </resources>

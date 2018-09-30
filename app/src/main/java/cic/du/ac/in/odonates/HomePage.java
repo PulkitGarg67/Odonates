@@ -258,6 +258,9 @@ public class HomePage extends AppCompatActivity {
             mAuth.signOut();
             startActivity(new Intent(this, Login.class));
             finish();
+        }else if (id == R.id.download){
+            Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(getString(R.string.pdfFile)));
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
