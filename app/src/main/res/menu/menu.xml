@@ -9,6 +9,10 @@
     <item
         android:title="Download PDF"
         android:id="@+id/download"/>
+
+    <item android:id="@+id/chklist"
+        android:title="My Checklist"/>
+
     <item
         android:title="Sign Out"
         android:id="@+id/item2_id"/>

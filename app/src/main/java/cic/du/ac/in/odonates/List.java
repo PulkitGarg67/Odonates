@@ -19,9 +19,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class List extends AppCompatActivity {
@@ -84,6 +87,7 @@ public class List extends AppCompatActivity {
                 ((TextView)v.findViewById(android.R.id.text2)).setText(Html.fromHtml(Sname));
             }
         };
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

@@ -19,8 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -192,25 +194,13 @@ public class HomePage extends AppCompatActivity {
     void set(String Sname) {
         t.setText(Sname);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(Sname + "/img_1.JPG");
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(img);
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(HomePage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+            public void onComplete(@NonNull Task<Uri> task) {
+                Picasso.get().load(task.getResult()).into(img);
                 p.setVisibility(View.INVISIBLE);
             }
-        }, 300);
+        });
     }
 
     public void location(View view) {
@@ -261,6 +251,8 @@ public class HomePage extends AppCompatActivity {
         }else if (id == R.id.download){
             Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(getString(R.string.pdfFile)));
             startActivity(intent);
+        }else if (id == R.id.chklist){
+            startActivity(new Intent(HomePage.this,my_checklist.class));
         }
         return super.onOptionsItemSelected(item);
     }

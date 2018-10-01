@@ -83,7 +83,7 @@ public class Search extends AppCompatActivity {
                 final ProgressBar p = findViewById(R.id.p);
                 p.setVisibility(View.VISIBLE);
                 String s = refineString(query);
-                Query select =mref.orderByChild("sname").startAt(s).limitToFirst(5);
+                Query select =mref.orderByChild("sname").startAt(s).endAt(s+"\uf8ff");
                 mref.keepSynced(true);
                 final FirebaseListAdapter<dataFetch> firebaseListAdapter = new FirebaseListAdapter<dataFetch>(Search.this,dataFetch.class, android.R.layout.simple_list_item_2, select) {
                     @Override
