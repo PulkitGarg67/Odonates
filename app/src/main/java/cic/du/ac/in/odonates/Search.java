@@ -106,7 +106,7 @@ public class Search extends AppCompatActivity {
                         }
                         result.setAdapter(firebaseListAdapter);
                     }
-                }, 5000);
+                }, 300);
 
                 result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
